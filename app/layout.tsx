@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "@/redux/storeProvider";
+import { QueryProviders } from "@/reactQuery/QueryProvider";
+import Navbar from "./_ui/navbar/Navbar";
+import Header from "./_ui/header/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +31,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <QueryProviders>
+            <StoreProvider >
+              <header>
+                <Navbar />
+                <Header />
+              </header>
+              <main className="w-[90%] mx-auto">
+                 {children}
+              </main>
+            </StoreProvider>
+         </QueryProviders>
+
       </body>
     </html>
   );
