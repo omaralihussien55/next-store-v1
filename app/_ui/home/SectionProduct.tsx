@@ -3,14 +3,13 @@ import React, { FC } from 'react'
 import Title from '../title/Title'
 import { GetProductQuery } from '@/reactQuery/products/Products'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
-import { Card } from '@/components/ui/card'
+
 import { Product } from '@/reactQuery/types'
 import { Button } from '@/components/ui/button'
 
 const SectionProduct = () => {
-    const {data,isLoading} = GetProductQuery()
+    const {data} = GetProductQuery()
 
-    console.log("data",data)
   return (
     <div className='mb-8'>
       <Title >Feature Products</Title>

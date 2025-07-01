@@ -1,6 +1,6 @@
 "use client"
 import React ,{useState} from 'react'
-import { Menu, ShoppingCart, Store, X } from 'lucide-react';
+import { Menu, ShoppingCart, X } from 'lucide-react';
 
 const Navbar = () => {
   // State to manage the navbar's visibility
