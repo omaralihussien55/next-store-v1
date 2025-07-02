@@ -1,24 +1,26 @@
 "use client"
 import React, { FC } from 'react'
 import Title from '../title/Title'
-import { GetProductQuery } from '@/reactQuery/products/Products'
+import { GetProductQuery } from '@/reactQuery/products/ProductsQuery'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 
 import { Product } from '@/reactQuery/types'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import Image from 'next/image'
 
 const SectionProduct = () => {
     const {data} = GetProductQuery()
 
   return (
-    <div className='mb-8'>
+    <div className='mb-12 '>
       <Title >Feature Products</Title>
 
 
 <Carousel className=''>
   <CarouselContent className='gap-6'>
     {data&& data.products.map((item:Product,idx:number)=>{
-        return <CarouselItem key={idx} className="h-[200px] md:h-[300px] basis-40 md:basis-52 bg-white rounded-2xl ">
+        return <CarouselItem key={idx} className="h-[200px] md:h-[300px] basis-40 md:basis-52 ">
             <CardItem item={item} />
         </CarouselItem>
     })}
@@ -35,7 +37,7 @@ export default SectionProduct
 
 const CardItem:FC<{item:Product}> = ({item})=>{
 
-    return <div className='w-full h-full flex items-center justify-between flex-col gap-2 aspect-square  p-2'>
+    return <div className='w-full h-full flex items-center justify-between flex-col gap-2 aspect-square bg-white  rounded-2xl shadow-lg p-2'>
              <div className='w-full   h-[35%] md:h-[40%] overflow-hidden'>
                 <img src={item.images[0]} alt="" className='h-full w-full' />
              </div>
@@ -48,4 +50,34 @@ const CardItem:FC<{item:Product}> = ({item})=>{
                  </div>
              </div>
     </div>
+}
+
+
+const ProductCard:FC<{product:Product}> =({product})=> {
+  return (
+    <Card className="flex h-full w-full max-w-md overflow-hidden">
+      {/* الصورة */}
+      <div className="w-2/5 relative">
+        <img
+          src={product.images[0]}
+          alt={product.title}
+          // fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* التفاصيل */}
+      <CardContent className="w-3/5 flex flex-col justify-between p-4">
+        <div>
+          <h3 className="text-lg font-semibold">{product.title}</h3>
+          <p className="text-sm text-gray-500 line-clamp-1">{product.description}</p>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <span className="text-base font-bold">${product.price}</span>
+          <Button>Add to Cart</Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }

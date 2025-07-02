@@ -15,7 +15,7 @@ const Header = () => {
       {
         data.map((item,idx)=>{
             return <CarouselItem key={idx}
-            className='w-full h-[300px] lg:h-[600px]   bg-red-950 relative'
+            className='w-full h-[300px] lg:h-[600px]   relative'
             >
              <div 
               style={{ backgroundImage: `url(${item})` }}

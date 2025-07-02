@@ -43,3 +43,9 @@ export interface Meta {
   barcode: string;
   qrCode: string;
 }
+
+export interface Category {
+  slug: string;
+  name: string;
+  url: string;
+}
