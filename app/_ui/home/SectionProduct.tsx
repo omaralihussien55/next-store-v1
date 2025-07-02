@@ -6,8 +6,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 
 import { Product } from '@/reactQuery/types'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import Image from 'next/image'
 
 const SectionProduct = () => {
     const {data} = GetProductQuery()
@@ -53,31 +51,3 @@ const CardItem:FC<{item:Product}> = ({item})=>{
 }
 
 
-const ProductCard:FC<{product:Product}> =({product})=> {
-  return (
-    <Card className="flex h-full w-full max-w-md overflow-hidden">
-      {/* الصورة */}
-      <div className="w-2/5 relative">
-        <img
-          src={product.images[0]}
-          alt={product.title}
-          // fill
-          className="object-cover"
-        />
-      </div>
-
-      {/* التفاصيل */}
-      <CardContent className="w-3/5 flex flex-col justify-between p-4">
-        <div>
-          <h3 className="text-lg font-semibold">{product.title}</h3>
-          <p className="text-sm text-gray-500 line-clamp-1">{product.description}</p>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <span className="text-base font-bold">${product.price}</span>
-          <Button>Add to Cart</Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}

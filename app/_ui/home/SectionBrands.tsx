@@ -1,9 +1,8 @@
 "use client"
-import React, { SetStateAction, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import Title from '../title/Title'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Card, CardContent } from '@/components/ui/card'
-import { GetProductQuery } from '@/reactQuery/products/ProductsQuery'
 import { Product } from '@/reactQuery/types'
 import axios from 'axios'
 
