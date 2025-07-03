@@ -13,7 +13,7 @@ const ShopingCart:FC<{carts:Cart}> = ({carts}) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.5 }}
-    className='w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 fixed top-20 right-[5%] md:right-5  h-[800px] md:h-[500px]  z-50 rounded-xl p-4  overflow-hidden bg-white shadow-lg'>
+    className='w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 fixed top-20 right-[5%] md:right-5  h-[500px]  z-50 rounded-xl p-4  overflow-hidden bg-white shadow-lg'>
       <div className='w-full h-full flex justify-between flex-col '>
         <h1 className='p-1.5 text-center mb-2 text-gray-600'>Cart</h1>
         <div className='grow  overflow-y-scroll hover:custom-scrollbar'>
