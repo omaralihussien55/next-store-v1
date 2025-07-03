@@ -4,9 +4,10 @@ import { CartProduct } from "@/reactQuery/types";
 
 export async function DELETE(
     req: NextRequest, 
-   context: { params: { id: string } }
+    { params }: { params: { id: string } }
 ) {
-    const productId = parseInt(context.params.id); // ✅ استخدم destructuring هنا
+  await req.json()
+    const productId = parseInt(params.id); // ✅ استخدم destructuring هنا
   const cartRef = cart.carts[0];
 
   const productIndex = cartRef.products.findIndex(
