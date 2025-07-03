@@ -21,6 +21,7 @@ export interface Product {
   meta: Meta;
   images: string[];
   thumbnail: string;
+  inCart?:boolean
 }
 
 export interface Dimensions {
@@ -48,4 +49,70 @@ export interface Category {
   slug: string;
   name: string;
   url: string;
+}
+
+export interface CartProduct {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  total: number;
+  discountPercentage?: number;
+  discountedTotal: number;
+  thumbnail: string;
+}
+
+
+export interface Cart {
+  id: number;
+  products: CartProduct[];
+  total: number;
+  discountedTotal: number;
+  userId: number;
+  totalProducts: number;
+  totalQuantity: number;
+}
+
+export interface AddToCartProduct {
+  id: number;       // product ID
+  quantity: number;
+}
+
+export interface AddToCartPayload {
+  userId: number;
+  products: AddToCartProduct[];
+}
+
+export interface CartProductInput {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  discountPercentage: number;
+  thumbnail: string;
+}
+
+export interface AddToCartPayloads {
+  product: CartProductInput;
+}
+
+// interface CartProduct {
+//   id: number;
+//   quantity: number;
+//   // ...
+// }
+
+// interface Cart {
+//   products: CartProduct[];
+// }
+
+export interface AddToCartPayload {
+  product: {
+    id: number;
+    title: string;
+    price: number;
+    quantity: number;
+    discountPercentage: number;
+    thumbnail: string;
+  };
 }

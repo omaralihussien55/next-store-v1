@@ -1,6 +1,10 @@
 "use client"
 import React ,{useState} from 'react'
 import { Menu, ShoppingCart, X } from 'lucide-react';
+import ShopingCart from './ShopingCart';
+import { GetAllCartQuery } from '@/reactQuery/cart/CartQuery';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { toggleCart } from '@/redux/counterSlice';
 
 const Navbar = () => {
   // State to manage the navbar's visibility
@@ -21,7 +25,8 @@ const Navbar = () => {
   ];
 
   return (
-    <div className='bg-white shadow flex justify-between items-center   mx-auto p-2 gap-4 '>
+    <div className=' shadow  mx-auto p-2 fixed w-full z-[9999] top-0 left-0 '>
+    <div className='flex justify-between items-center gap-4  '>
       {/* Logo */}
       <h1 className='  text-3xl font-bold text-[#00df9a]'>REACT.</h1>
 
@@ -38,7 +43,7 @@ const Navbar = () => {
       </ul>
 
       {/* Mobile Navigation Icon */}
-      <div onClick={handleNav} className='block md:hidden'>
+      <div onClick={handleNav} className='block md:hidden absolute top-1/2 right-1.5 -translate-y-1/2  '>
        {nav ? <X size={20} /> : <Menu size={20} />}
       </div>
 
@@ -57,7 +62,7 @@ const Navbar = () => {
         {navItems.map(item => (
           <li
             key={item.id}
-            className='p-2 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
+            className='p-2 border-b rounded-xl hover:bg-[#00df9a] duration-300 text-white cursor-pointer border-gray-600'
           >
             {item.text}
           </li>
@@ -65,6 +70,8 @@ const Navbar = () => {
       </ul>
         <Search />
         <Cart />
+        <div className='w-7'></div>
+    </div>
     </div>
   );
 };
@@ -78,10 +85,25 @@ const Search = ()=>{
         </div>
     )
 }
+
+
 const Cart = ()=>{
+  const {data} = GetAllCartQuery()
+ const {openCart} = useAppSelector(state=> state.NavSlice)
+ const dispatch = useAppDispatch()
     return (
-        <div>
-          <ShoppingCart  size={24} />
+      <>
+        <div className='relative h-10 w-12 rounded-xl bg-gray-100 flex justify-center items-center'>
+          <div className='absolute size-5 rounded-full bg-green-700 text-white text-[10px] flex justify-center items-center -top-1 right-0 '>{
+          // data?.carts[data?.carts.lenght - 1]?.products.lenght
+          data?.carts[data?.carts?.length -1]?.products?.length
+          }</div>
+          <span className="cursor-pointer" onClick={()=> dispatch(toggleCart(!openCart))}><ShoppingCart  size={20} /></span>
+
+          
         </div>
+     
+      </>
+      
     )
 }

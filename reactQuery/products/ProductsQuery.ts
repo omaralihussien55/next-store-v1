@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { Product } from "../types"
+import { CartProduct, Product } from "../types"
+import {  GetAllCartQuery } from "../cart/CartQuery"
 
 
 const getProducts = async()=>{
@@ -28,3 +29,26 @@ export const GetByIdQuery = (id:number | string)=>{
     enabled:!!id
  })
 }
+
+
+export const useProductsWithCartStatus = () => {
+  const { data: products, isLoading: loadingProducts } = GetProductQuery()
+
+  const { data: cart, isLoading: loadingCart } = GetAllCartQuery()
+
+  const productsWithStatus = products?.map((product: Product) => {
+    const isInCart = cart?.products?.some(
+      (item: CartProduct) => item.id === product.id
+    );
+
+    return {
+      ...product,
+      inCart: isInCart ?? false, // إذا لم يكن موجودًا تعتبره false
+    };
+  });
+
+  return {
+    products: productsWithStatus,
+    isLoading: loadingProducts || loadingCart,
+  };
+};

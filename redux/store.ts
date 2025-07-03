@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import  counterSlice  from './counterSlice'
+import  NavSlice  from './counterSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-        counter:counterSlice
+        NavSlice:NavSlice
     },
   })
 }
