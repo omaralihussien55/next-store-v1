@@ -2,12 +2,14 @@ import { CartProduct } from "@/reactQuery/types";
 import { NextRequest, NextResponse } from "next/server";
 import { cart } from "../route";
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  // const { productId }: { productId: number } = await req.json();
-  const productId = parseInt(params.id);
+
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const productId = parseInt(context.params.id);
   const cartRef = cart.carts[0];
 
-  // تحقق إن المنتج موجود
   const productIndex = cartRef.products.findIndex(
     (p: CartProduct) => p.id === productId
   );
@@ -19,10 +21,8 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     );
   }
 
-  // ✅ إزالة المنتج
   cartRef.products.splice(productIndex, 1);
 
-  // ✅ تحديث بيانات الكارت العامة
   cartRef.total = cartRef.products.reduce((acc, p) => acc + p.total, 0);
   cartRef.discountedTotal = cartRef.products.reduce(
     (acc, p) => acc + p.discountedTotal,
