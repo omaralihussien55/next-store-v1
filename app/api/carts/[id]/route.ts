@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import { cart } from "../route";
 import { CartProduct } from "@/reactQuery/types";
 
