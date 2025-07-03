@@ -1,13 +1,12 @@
-import { CartProduct } from "@/reactQuery/types";
 import { NextRequest, NextResponse } from "next/server";
 import { cart } from "../route";
-
+import { CartProduct } from "@/reactQuery/types";
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const productId = parseInt(context.params.id);
+  const productId = parseInt(params.id); // ✅ استخدم destructuring هنا
   const cartRef = cart.carts[0];
 
   const productIndex = cartRef.products.findIndex(
@@ -16,7 +15,7 @@ export async function DELETE(
 
   if (productIndex === -1) {
     return NextResponse.json(
-      { message: 'Product not found in cart.' },
+      { message: "Product not found in cart." },
       { status: 404 }
     );
   }
@@ -34,5 +33,5 @@ export async function DELETE(
     0
   );
 
-  return NextResponse.json({ message: 'Product removed from cart.', cart });
+  return NextResponse.json({ message: "Product removed from cart.", cart });
 }
