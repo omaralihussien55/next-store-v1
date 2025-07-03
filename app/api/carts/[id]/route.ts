@@ -3,7 +3,7 @@ import { cart } from "../route";
 import { CartProduct } from "@/reactQuery/types";
 
 export async function DELETE(
-  req: NextRequest,
+  
   { params }: { params: { id: string } }
 ) {
   const productId = parseInt(params.id); // ✅ استخدم destructuring هنا
