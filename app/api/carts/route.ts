@@ -2,7 +2,7 @@
 import { AddToCartPayload, AddToCartPayloads, CartProduct } from '@/reactQuery/types';
 import { NextRequest, NextResponse } from 'next/server'
 
-export let cart = {
+export const cart = {
   carts: [
     {
       id: 1,

@@ -5,7 +5,6 @@ import StoreProvider from "@/redux/storeProvider";
 import { QueryProviders } from "@/reactQuery/QueryProvider";
 import Navbar from "./_ui/navbar/Navbar";
 import Header from "./_ui/header/Header";
-import ShopingCart from "./_ui/navbar/ShopingCart";
 import DataShopingCart from "./_ui/navbar/DataShopingCart";
 
 const geistSans = Geist({

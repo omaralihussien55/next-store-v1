@@ -47,7 +47,7 @@ export default SectionProduct
 
 export const CardItem:FC<{item:Product}> = ({item})=>{
 
-    const { mutate: addToCart ,isSuccess} = AddToCardQuery();
+    const { mutate: addToCart } = AddToCardQuery();
 
 const handleAdd = (product: Product) => {
   addToCart({

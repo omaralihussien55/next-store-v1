@@ -1,7 +1,6 @@
 "use client"
 import React ,{useState} from 'react'
 import { Menu, ShoppingCart, X } from 'lucide-react';
-import ShopingCart from './ShopingCart';
 import { GetAllCartQuery } from '@/reactQuery/cart/CartQuery';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleCart } from '@/redux/counterSlice';
