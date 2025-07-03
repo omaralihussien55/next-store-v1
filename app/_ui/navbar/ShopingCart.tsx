@@ -22,7 +22,7 @@ const ShopingCart:FC<{carts:Cart}> = ({carts}) => {
             })}
        
         </div>
-        <div className='h-[12%] sm:h-[14%] md:h-1/5'>
+        <div className='h-1/5'>
             <div className='mb-3 p-2'>
                 <p className='flex items-center justify-between gap-1.5'><span className='text-gray-800 font-bold text-[12px] md:text-sm'>Total </span>
                 <span className='text-[12px] md:text-sm text-gray-800'>${carts?.total.toFixed(2)}</span></p>
