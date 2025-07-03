@@ -1,12 +1,12 @@
-import {  NextResponse } from "next/server";
+import {  NextRequest, NextResponse } from "next/server";
 import { cart } from "../route";
 import { CartProduct } from "@/reactQuery/types";
 
 export async function DELETE(
-  
-  { params }: { params: { id: string } }
+    req: NextRequest, 
+   context: { params: { id: string } }
 ) {
-  const productId = parseInt(params.id); // ✅ استخدم destructuring هنا
+    const productId = parseInt(context.params.id); // ✅ استخدم destructuring هنا
   const cartRef = cart.carts[0];
 
   const productIndex = cartRef.products.findIndex(
