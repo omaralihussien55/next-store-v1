@@ -5,6 +5,7 @@ import {  Cart, CartProduct } from '@/reactQuery/types'
 import { Trash2 } from 'lucide-react'
 import React, { FC } from 'react'
 import {motion} from "framer-motion"
+import { useRouter } from 'next/navigation'
 const ShopingCart:FC<{carts:Cart}> = ({carts}) => {
 
   return (
@@ -37,6 +38,7 @@ const ShopingCart:FC<{carts:Cart}> = ({carts}) => {
 export default ShopingCart
 
 const CartItem:FC<{product:CartProduct}> = ({product})=>{
+  const router = useRouter()
   const {mutate:UpdateToCard} = UpdateToCardQuery()
   const { mutate: deleteItem } = useDeleteFromCart();
   const EditCard = (product:CartProduct,type:string)=>{
@@ -57,8 +59,8 @@ UpdateToCard({ ...product, quantity: product.quantity + 1 });
   }
 
     return <>
-    <div className='w-full '>
-          <div className='flex items-center gap-2 mb-2'>
+    <div className='w-full ' >
+          <div className='flex items-center gap-2 mb-2 cursor-pointer' onClick={()=> router.push(`/products/${product.id}`)}>
             <div className='size-12 rounded-xl overflow-hidden border bg-gray-100'>
                 <img src={product.thumbnail} alt='' className='w-full h-full' />
             </div>
@@ -76,11 +78,11 @@ UpdateToCard({ ...product, quantity: product.quantity + 1 });
                   <span className='text-[10px] md:text-sm  inline-block p-1 rounded-md bg-pink-300 text-pink-700'>{product.discountPercentage}%</span>
               </div>
               <div className='grow flex items-center justify-end gap-1.5'>
-                   {product.quantity <=1 ?   <span onClick={()=> EditCard(product,"decreas")} className='p-1 cursor-pointer size-5 flex items-center justify-center bg-gray-100 
-                    text-gray-600 rounded-sm'><Trash2 size={18} /></span> :   <span onClick={()=> EditCard(product,"decreas")} className='p-1 cursor-pointer size-5 flex items-center justify-center bg-gray-100  text-gray-600 rounded-sm'>-</span>}   
+                   {product.quantity <=1 ?   <span onClick={()=> EditCard(product,"decreas")} className='p-1 cursor-pointer size-7 flex items-center justify-center bg-gray-100 
+                    text-gray-600 rounded-sm'><Trash2 size={18} /></span> :   <span onClick={()=> EditCard(product,"decreas")} className='p-1 cursor-pointer size-7 flex items-center justify-center bg-gray-100  text-gray-600 rounded-sm'>-</span>}   
                 
                     <span className='p-1 cursor-pointer size-5  flex items-center justify-center  text-gray-800 rounded-md'>{product.quantity}</span>
-                    <span  onClick={()=> EditCard(product,"increas")} className='p-1 cursor-pointer size-5 flex items-center justify-center bg-gray-100 k text-gray-600 rounded-sm'>+</span>
+                    <span  onClick={()=> EditCard(product,"increas")} className='p-1 cursor-pointer size-7 flex items-center justify-center bg-gray-100 k text-gray-600 rounded-sm'>+</span>
                     
               </div>
            </div>

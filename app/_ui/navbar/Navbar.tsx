@@ -4,6 +4,7 @@ import { Menu, ShoppingCart, X } from 'lucide-react';
 import { GetAllCartQuery } from '@/reactQuery/cart/CartQuery';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleCart } from '@/redux/counterSlice';
+import Link from 'next/link';
 
 const Navbar = () => {
   // State to manage the navbar's visibility
@@ -16,18 +17,18 @@ const Navbar = () => {
 
   // Array containing navigation items
   const navItems = [
-    { id: 1, text: 'Home' },
-    { id: 2, text: 'Company' },
-    { id: 3, text: 'Resources' },
-    { id: 4, text: 'About' },
-    { id: 5, text: 'Contact' },
+    { id: 1, text: 'Home' ,link:"/"},
+    { id: 2, text: 'products',link:"/products" },
+    { id: 3, text: 'Resources',link:"/" },
+    { id: 4, text: 'About' ,link:"/"},
+    { id: 5, text: 'Contact',link:"/" },
   ];
 
   return (
-    <div className=' shadow  mx-auto p-2 fixed w-full z-[9999] top-0 left-0 '>
+    <div className=' shadow bg-white  mx-auto p-2 fixed w-full z-[9999] top-0 left-0 '>
     <div className='flex justify-between items-center gap-4  '>
       {/* Logo */}
-      <h1 className='  text-3xl font-bold text-[#00df9a]'>REACT.</h1>
+      <h1 className='  text-3xl font-bold text-slate-800'><span>Smart</span><span className='text-green-500'>Kart</span></h1>
 
       {/* Desktop Navigation */}
       <ul className='hidden md:flex w-full'>
@@ -36,7 +37,9 @@ const Navbar = () => {
             key={item.id}
             className='p-2 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
           >
+            <Link href={`${item.link}`} className='block '>
             {item.text}
+            </Link>
           </li>
         ))}
       </ul>

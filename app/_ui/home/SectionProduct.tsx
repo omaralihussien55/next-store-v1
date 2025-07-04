@@ -8,6 +8,7 @@ import { CartProduct, Product } from '@/reactQuery/types'
 import { Button } from '@/components/ui/button'
 import { RatingStars } from '../rating/RatingStar'
 import { AddToCardQuery, GetAllCartQuery } from '@/reactQuery/cart/CartQuery'
+import { useRouter } from 'next/navigation'
 
 const SectionProduct = () => {
     const {data} = GetProductQuery()
@@ -31,7 +32,7 @@ const SectionProduct = () => {
   <CarouselContent className='gap-6'>
     { productsWithStatus?.map((item:Product,idx:number)=>{
         return <CarouselItem key={idx} className="h-[200px] md:h-[300px] basis-40 md:basis-52 ">
-            <CardItem item={item} />
+            <CardItem item={item} aspect='aspect-square'/>
         </CarouselItem>
     })}
     
@@ -45,8 +46,8 @@ const SectionProduct = () => {
 
 export default SectionProduct
 
-export const CardItem:FC<{item:Product}> = ({item})=>{
-
+export const CardItem:FC<{item:Product,aspect?:string}> = ({item,aspect=""})=>{
+   const router = useRouter()
     const { mutate: addToCart } = AddToCardQuery();
 
 const handleAdd = (product: Product) => {
@@ -63,8 +64,9 @@ const handleAdd = (product: Product) => {
 };
 
 
-    return <div className='w-full h-full flex items-center justify-between flex-col gap-2 aspect-square bg-white  rounded-2xl shadow-lg p-2'>
-             <div className='w-full   h-[35%] md:h-[40%] overflow-hidden'>
+    return <div className={`w-full relative h-full flex items-center justify-between flex-col gap-2  ${aspect} bg-white  rounded-2xl shadow-lg p-2`}>
+             <span className='block absolute top-0 left-0 py-1 px-2 bg-pink-200 text-pink-800 rounded-tl-2xl rounded-br-2xl'>{item.discountPercentage}%</span>
+             <div className='w-full   h-[35%] md:h-[40%] overflow-hidden cursor-pointer' onClick={()=> router.push(`/products/${item.id}`)} >
                 <img src={item.thumbnail} alt="" className='h-full w-full' />
              </div>
              <div className='w-full h-[65%] md:h-[60%]  flex flex-col justify-between  '>

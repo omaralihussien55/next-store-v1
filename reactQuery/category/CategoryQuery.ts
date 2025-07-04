@@ -29,3 +29,4 @@ export const GetByIdCategoryQuery = (id:number | string)=>{
     enabled:!!id
  })
 }
+

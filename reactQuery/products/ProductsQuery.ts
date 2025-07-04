@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { CartProduct, Product } from "../types"
-import {  GetAllCartQuery } from "../cart/CartQuery"
+import {  Product } from "../types"
 
 
 const getProducts = async()=>{
@@ -31,24 +30,20 @@ export const GetByIdQuery = (id:number | string)=>{
 }
 
 
-export const useProductsWithCartStatus = () => {
-  const { data: products, isLoading: loadingProducts } = GetProductQuery()
+const getbyCategory = async(cat:string)=>{
+  const url = cat === 'all'
+      ? 'https://dummyjson.com/products'
+      : `https://dummyjson.com/products/category/${cat}`;
 
-  const { data: cart, isLoading: loadingCart } = GetAllCartQuery()
+   const res = await axios.get(url)
 
-  const productsWithStatus = products?.map((product: Product) => {
-    const isInCart = cart?.products?.some(
-      (item: CartProduct) => item.id === product.id
-    );
+   return res.data
+}
 
-    return {
-      ...product,
-      inCart: isInCart ?? false, // إذا لم يكن موجودًا تعتبره false
-    };
-  });
-
-  return {
-    products: productsWithStatus,
-    isLoading: loadingProducts || loadingCart,
-  };
-};
+export const GetProductByCategory = (cat:string)=>{
+  return useQuery({
+    queryKey:["products",cat],
+    queryFn:()=> getbyCategory(cat),
+    enabled:!!cat
+  })
+}

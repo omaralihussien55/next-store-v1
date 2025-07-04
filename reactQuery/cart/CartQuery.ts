@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
-import {  AddToCartPayloads, CartProduct,} from "../types"
+import {  AddToCartPayloads, CartProduct, Product,} from "../types"
 
 
 export const getAllCart = async()=>{
@@ -35,7 +35,7 @@ export const AddToCardQuery = ()=>{
 
 
 
-const updatetocart = async(data: CartProduct)=>{
+const updatetocart = async(data: CartProduct | Product)=>{
     const res = await axios.put("/api/carts",{ product: data })
  
     return res.data

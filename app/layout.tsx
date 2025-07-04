@@ -4,7 +4,6 @@ import "./globals.css";
 import StoreProvider from "@/redux/storeProvider";
 import { QueryProviders } from "@/reactQuery/QueryProvider";
 import Navbar from "./_ui/navbar/Navbar";
-import Header from "./_ui/header/Header";
 import DataShopingCart from "./_ui/navbar/DataShopingCart";
 
 const geistSans = Geist({
@@ -37,9 +36,9 @@ export default function RootLayout({
               <header className="relative">
                 <Navbar />
                 <DataShopingCart/>
-                <Header />
+                
               </header>
-              <main className="w-[90%] mx-auto">
+              <main className="w-[90%] mx-auto mb-9 mt-22">
                  {children}
               </main>
             </StoreProvider>
