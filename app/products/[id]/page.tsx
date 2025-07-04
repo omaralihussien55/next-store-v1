@@ -1,12 +1,14 @@
 import ProductDetails from '@/app/_ui/productComponent/ProductDetails'
 import React from 'react'
 
-export default  function ProductDetailsPage({ params }: { params: { id: string } }){
-
+type tParams = Promise<{ slug: string[] }>;
+export default async function  DetailsPge({ params }: { params: tParams }){
+ const { slug } = await params;
+  const productID = slug[1];
 
     return (
         <div>
-            <ProductDetails id={params.id} />
+            <ProductDetails id={productID} />
         </div>
     )
 }
