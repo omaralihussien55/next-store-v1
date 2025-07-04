@@ -96,7 +96,7 @@ if(type == "increas"){
              </div>
 
              {/*  */}
-             {products && <div className='w-full md:w-1/2 p-3 '>
+             {products&& <div className='w-full md:w-1/2 p-3 '>
              <div className='bg-white rounded-2xl h-full p-3 flex flex-col justify-between'>
                 <div className='flex items-center gap-2 mb-3'>
                     <h1 className='font-bold text-gray-800 grow'>{products?.title}</h1>
