@@ -9,7 +9,7 @@ export async function GET(
 
 ) {
     
-  const productId = parseInt((await params).id);
+  // const productId = parseInt((await params).id);
 
   const order = orders.find((p:Order) => p.id == 3 );
 console.log("vv",order)

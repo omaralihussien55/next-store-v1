@@ -84,13 +84,13 @@ const Navbar = () => {
 
 export default Navbar;
 
-const Search = ()=>{
-    return(
-        <div className=''>
-            <input className='outline-0 px-4 py-2 w-36 hover:w-48 min-h-5 duration-500 border-0 bg-gray-100 rounded-2xl ' />
-        </div>
-    )
-}
+// const Search = ()=>{
+//     return(
+//         <div className=''>
+//             <input className='outline-0 px-4 py-2 w-36 hover:w-48 min-h-5 duration-500 border-0 bg-gray-100 rounded-2xl ' />
+//         </div>
+//     )
+// }
 
 
 const Cart = ()=>{

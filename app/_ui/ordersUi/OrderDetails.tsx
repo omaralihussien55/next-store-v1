@@ -1,5 +1,5 @@
 "use client"
-import { GetAllOrdersQuery, GetOrderByIdQuery, UpdateOrderQuery } from '@/reactQuery/orders/OrderQuery'
+import { GetAllOrdersQuery, UpdateOrderQuery } from '@/reactQuery/orders/OrderQuery'
 import React, { FC } from 'react'
 import PayMent from '../checkout/PayMent'
 import Successfull from '../checkout/Successfull'
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 
 const OrderDetails:FC<{id:string}> = ({id}) => {
     // const {data:order} = GetOrderByIdQuery(id)
-       const {data:orders ,isSuccess } = GetAllOrdersQuery()
+       const {data:orders  } = GetAllOrdersQuery()
   const updateOrder = UpdateOrderQuery()
   const order = orders?.find((i:Order)=> i.id == Number(id))
       const currentStatus = order?.status 

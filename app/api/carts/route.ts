@@ -94,7 +94,7 @@ export async function PUT(req: NextRequest) {
 }
 
 
-export async function PATCH(req: NextRequest) {
+export async function PATCH() {
 
       cart.carts[0].products = [] 
       cart.carts[0].total= 0;

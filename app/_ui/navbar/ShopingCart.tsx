@@ -14,9 +14,9 @@ import { toggleCart } from '@/redux/counterSlice'
 
 const ShopingCart: FC<{ carts: Cart }> = ({ carts }) => {
   const router = useRouter()
-  const ref = useRef<any>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
-  const { mutate: addOrder, isPending, isSuccess, data: newOrder } = AddOrderQuery()
+  const { mutate: addOrder, isPending, data: newOrder } = AddOrderQuery()
   
   const updateOrder = UpdateOrderQuery()
   const patchorder = PatchCartDeletQuery()
