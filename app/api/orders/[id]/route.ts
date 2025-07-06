@@ -4,8 +4,6 @@ import { orders } from '../../data/orders';
 
 type tParams = Promise<{ id: string }>;
 export async function GET(
-  req: NextRequest,
-  { params }: { params: tParams }
 
 ) {
     
