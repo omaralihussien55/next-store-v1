@@ -8,9 +8,10 @@ import Title from '../title/Title'
 import { useAppDispatch } from '@/redux/hooks'
 import { ChangeValueCategory } from '@/redux/counterSlice'
 import { useRouter } from 'next/navigation'
+import Loader from '../loader/Loader'
 
 const SectionCategory = () => {
-    const {data} = GetCategoryQuery()
+    const {data,isLoading} = GetCategoryQuery()
      const Dispatch = useAppDispatch()
      const navigate = useRouter()
   return (
@@ -33,6 +34,9 @@ const SectionCategory = () => {
                   })  
                 }
         </CarouselContent>
+         {isLoading&&<span className="absolute top-1/2 left-1/2 -translate-1/2 ">
+            <Loader />
+            </span>}
          <CarouselPrevious className="left-4" />
           <CarouselNext className="right-4" />
       </Carousel>

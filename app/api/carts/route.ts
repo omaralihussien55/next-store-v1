@@ -94,3 +94,12 @@ export async function PUT(req: NextRequest) {
 }
 
 
+export async function PATCH(req: NextRequest) {
+
+      cart.carts[0].products = [] 
+      cart.carts[0].total= 0;
+      cart.carts[0].discountedTotal=0;
+      cart.carts[0].totalProducts = 0;
+      cart.carts[0].totalQuantity= 0;
+  return NextResponse.json({ message: 'Product patche successfully.', cart });
+}

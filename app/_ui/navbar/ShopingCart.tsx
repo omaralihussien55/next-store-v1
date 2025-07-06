@@ -1,34 +1,147 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import { UpdateToCardQuery, useDeleteFromCart } from '@/reactQuery/cart/CartQuery'
-import {  Cart, CartProduct } from '@/reactQuery/types'
+import { PatchCartDeletQuery, UpdateToCardQuery, useDeleteFromCart } from '@/reactQuery/cart/CartQuery'
+import {  Cart, CartProduct, OrderProduct } from '@/reactQuery/types'
 import { Trash2 } from 'lucide-react'
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import {motion} from "framer-motion"
 import { useRouter } from 'next/navigation'
-const ShopingCart:FC<{carts:Cart}> = ({carts}) => {
+import { AddOrderQuery, UpdateOrderQuery } from '@/reactQuery/orders/OrderQuery'
+import PayMent  from '../checkout/PayMent'
+import Successfull from '../checkout/Successfull'
+import { useAppDispatch } from '@/redux/hooks'
+import { toggleCart } from '@/redux/counterSlice'
+
+const ShopingCart: FC<{ carts: Cart }> = ({ carts }) => {
+  const router = useRouter()
+  const ref = useRef<any>(null)
+  const dispatch = useAppDispatch()
+  const { mutate: addOrder, isPending, isSuccess, data: newOrder } = AddOrderQuery()
+  
+  const updateOrder = UpdateOrderQuery()
+  const patchorder = PatchCartDeletQuery()
+
+  const currentOrder =updateOrder?.data?.order ? updateOrder?.data?.order : newOrder?.order
+  const currentStatus = currentOrder?.status // 0 | 1 | 2
+
+ const handleOrderFlow = (products: OrderProduct[]) => {
+
+  if (!newOrder?.order) {
+    addOrder({ products })
+    return
+  }
+
+  if (currentStatus === 0) {
+    updateOrder.mutate({ status: 1, id: currentOrder.id })
+    return
+  }
+
+  if (currentStatus === 1) {
+     updateOrder.mutate({ status: 2, id: currentOrder.id })
+    router.push("/products")
+    patchorder.mutate()
+    console.log("pach",patchorder.data)
+    dispatch(toggleCart(false))
+    
+    return
+  }
+
+ 
+}
+
+
+  const getHeaderLabel = () => {
+    if (!currentOrder) return "Cart"
+    if (currentStatus === 0) return "Payment Method"
+    if (currentStatus === 1) return "Confirmation"
+    return "Cart"
+  }
+
+  const getButtonLabel = () => {
+    if (isPending || updateOrder.isPending) return "Processing..."
+    if (!currentOrder) return "Checkout"
+    if (currentStatus === 0) return "Pay"
+    if (currentStatus === 1) return "Continue Shopping"
+    return "Checkout"
+  }
+
+  const renderCartContent = () => {
+  if (!currentOrder) {
+    return carts?.products.map((item: CartProduct, idx: number) => (
+      <CartItem product={item} key={idx} />
+    ))
+  }
+
+  if (currentStatus === 0) {
+    return <PayMent newOrder={currentOrder} />
+  }
+
+  if (currentStatus === 1) {
+    return <Successfull num={currentOrder.id} />
+  }
+
+  return null
+}
+
+// useEffect(()=>{
+//  if(currentStatus === 2){
+//    patchorder.mutate()
+//  }
+// },[currentStatus])
+
+
+ useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        dispatch(toggleCart(false)) 
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [])
+
+
 
   return (
-    <motion.div 
-     initial={{ y: 200, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.5 }}
-    className='w-[90%] sm:w-1/2 md:w-1/3 lg:w-1/4 fixed top-20 right-[5%] md:right-5  h-[500px]  z-50 rounded-xl p-4  overflow-hidden bg-white shadow-lg'>
-      <div className='w-full h-full flex justify-between flex-col '>
-        <h1 className='p-1.5 text-center mb-2 text-gray-600'>Cart</h1>
-        <div className='grow  overflow-y-scroll hover:custom-scrollbar'>
-            {carts?.products.map((item:CartProduct,idx:number)=>{
-              return <CartItem product={item} key={idx} />
-            })}
-       
+    <motion.div
+      initial={{ y: 200, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 100, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className='w-[90%] sm:w-1/2 lg:w-1/3 fixed top-20 right-[5%] md:right-5 h-[500px] z-50 rounded-xl p-4 overflow-hidden bg-white shadow-lg'
+    ref={ref}
+   >
+      <div className='w-full h-full flex flex-col justify-between'>
+        <h1 className='p-1.5 text-center mb-2 text-green-700 font-bold'>
+          {getHeaderLabel()}
+        </h1>
+
+        <div className='grow overflow-y-scroll hover:custom-scrollbar'>
+        {renderCartContent()}
         </div>
+
         <div className='h-1/5'>
+          {currentStatus !== 2 && (
             <div className='mb-3 p-2'>
-                <p className='flex items-center justify-between gap-1.5'><span className='text-gray-800 font-bold text-[12px] md:text-sm'>Total </span>
-                <span className='text-[12px] md:text-sm text-gray-800'>${carts?.total.toFixed(2)}</span></p>
+              <p className='flex items-center justify-between gap-1.5'>
+                <span className='text-gray-800 font-bold text-[12px] md:text-sm'>Total</span>
+                <span className='text-[12px] md:text-sm text-gray-800'>
+                  ${carts?.total.toFixed(2)}
+                </span>
+              </p>
             </div>
-            <Button className='bg-green-600 text-center hover:bg-green-500 w-full cursor-pointer'>Checkout</Button>
+          )}
+
+          <Button
+            onClick={() => handleOrderFlow(carts.products)}
+            className='bg-green-600 hover:bg-green-500 w-full'
+          >
+            {getButtonLabel()}
+          </Button>
         </div>
       </div>
     </motion.div>

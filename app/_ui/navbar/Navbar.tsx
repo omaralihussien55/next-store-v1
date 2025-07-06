@@ -19,7 +19,7 @@ const Navbar = () => {
   const navItems = [
     { id: 1, text: 'Home' ,link:"/"},
     { id: 2, text: 'products',link:"/products" },
-    { id: 3, text: 'Resources',link:"/" },
+    { id: 3, text: 'Orders',link:"/orders" },
     { id: 4, text: 'About' ,link:"/"},
     { id: 5, text: 'Contact',link:"/" },
   ];
@@ -66,11 +66,15 @@ const Navbar = () => {
             key={item.id}
             className='p-2 border-b rounded-xl hover:bg-[#00df9a] duration-300 text-white cursor-pointer border-gray-600'
           >
-            {item.text}
+            <Link href={`${item.link}`} className='block'>
+                   {item.text}
+            </Link>
+            
           </li>
         ))}
       </ul>
-        <Search />
+      <div className='grow'></div>
+        {/* <Search /> */}
         <Cart />
         <div className='w-7'></div>
     </div>

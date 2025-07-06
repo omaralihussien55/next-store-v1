@@ -116,3 +116,22 @@ export interface AddToCartPayload {
     thumbnail: string;
   };
 }
+export type OrderProduct = {
+  id?: number;
+  title?: string;
+  price?: number;
+  quantity?: number;
+  discountPercentage?: number;
+  thumbnail?: string;
+};
+
+// تعريف الطلب نفسه
+export type Order = {
+  id?: number;
+  userId?: number;
+  products: OrderProduct[];
+  total?: number;
+  discountedTotal?: number;
+  date?: string | Date;
+  status:number
+};

@@ -69,3 +69,20 @@ export const useDeleteFromCart = () => {
     },
   });
 };
+
+const PatchCartDelet = async()=>{
+    const res = await axios.patch("/api/carts")
+    return res.data()
+  }
+
+  export const PatchCartDeletQuery = ()=>{
+    const queryClient = useQueryClient()
+    return useMutation({
+      mutationKey:["patccart"],
+      mutationFn:PatchCartDelet,
+      onSuccess() {
+        queryClient.invalidateQueries({queryKey:["carts"]})
+      },
+    })
+    
+  }

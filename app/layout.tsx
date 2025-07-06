@@ -5,6 +5,7 @@ import StoreProvider from "@/redux/storeProvider";
 import { QueryProviders } from "@/reactQuery/QueryProvider";
 import Navbar from "./_ui/navbar/Navbar";
 import DataShopingCart from "./_ui/navbar/DataShopingCart";
+import Footer from "./_ui/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +41,10 @@ export default function RootLayout({
               </header>
               <main className="w-[90%] mx-auto mb-9 mt-22">
                  {children}
+
+
               </main>
+              <Footer />
             </StoreProvider>
          </QueryProviders>
 

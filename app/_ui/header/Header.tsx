@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import React from 'react'
 
-const data = ["/free-seabed-vector.png","/free-seabed-vector.png"]
+const data = [{img:"/pn.png",title:"Hyundai Tucson",info:"A stylish, compact SUV offering comfort and performance"},
+  {img:"/car.png",title:"Toyota Fortuner TRD Sportivo",info:"A rugged SUV built for off-road power and adventure."},
+  ]
 
 const Header = () => {
 // const {data} = GetByIdQuery(6)
@@ -18,21 +20,21 @@ const Header = () => {
             className='w-full h-[300px] lg:h-[600px]   relative'
             >
              <div 
-              style={{ backgroundImage: `url(${item})` }}
+              style={{ backgroundImage: `url(${item.img})` }}
                 key={idx} className="flex items-center w-full h-full  justify-center  bg-no-repeat bg-cover ">
              
                      
 
              </div>
-           <div className="absolute inset-0 bg-black/20">
+           <div className="absolute inset-0 bg-blue-900/60">
            <div className='w-[80%] mx-auto h-full'>
                 <div className='w-full h-full flex items-center justify-between'>
                       <div className='w-full md:w-1/2' >
-                           <h4 className='p-2 mb-2 text-lg text-gray-400 '>
-                                Ocean Breeze Essence
+                           <h4 className='p-2 mb-2 text-lg text-gray-100 '>
+                                {item.title}
                            </h4>
-                           <p className='p-2 mb-2 text-gray-200 text-3xl font-extrabold '>
-                               A fresh aquatic scent with citrus, musk, and wood
+                           <p className='p-2 mb-2 text-gray-50 text-3xl font-extrabold '>
+                               {item.info}
                            </p>
 
                            <div className='flex items-center gap-3'>

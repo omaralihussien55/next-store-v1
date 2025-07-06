@@ -7,12 +7,15 @@ import { GetAllCartQuery } from '@/reactQuery/cart/CartQuery'
 import { CartProduct, Product } from '@/reactQuery/types'
 import { CardItem } from '../home/SectionProduct'
 import { useAppSelector } from '@/redux/hooks'
+import PaginationProducts from './PaginationProducts'
+import Loader from '../loader/Loader'
+import NotFoundItems from '../notfound/NotFoundItems'
 
 
 const ProductComponent = () => {
-    const {valueCategory} = useAppSelector(state=> state.NavSlice)
+    const {valueCategory,page,pageSize} = useAppSelector(state=> state.NavSlice)
     const {data:categories } = GetCategoryQuery()
-    const {data:products} = GetProductByCategory(valueCategory)
+    const {data:products,isLoading} = GetProductByCategory(valueCategory,page,pageSize)
       const {data:carts} = GetAllCartQuery()
 
         const productsWithStatus = useMemo(() => {
@@ -24,6 +27,10 @@ const ProductComponent = () => {
         }) || [];
       }, [products, carts]);
 
+       const totalPages = Math.ceil((products?.total || 0) / pageSize);
+
+       console.log("pr",productsWithStatus)
+
   return (
     <div>
        <div className='flex justify-between  flex-wrap'>
@@ -32,15 +39,24 @@ const ProductComponent = () => {
           </div>
           <div className=' grow w-full   md:w-2/3 lg:w-3/4 p-3 '>
              <div className='flex flex-wrap gap-2.5 justify-center'>
-                 {productsWithStatus?.map((item:Product,idx:number)=>{
+                {isLoading ? <><Loader /></>:<>
+                {productsWithStatus?.length > 0 ? productsWithStatus?.map((item:Product,idx:number)=>{
                     return <div key={idx} className='h-[200px] md:h-[300px] basis-1/5  '>
                         <CardItem  item={item} 
                         aspect=''
                         
                         />
                     </div>
-                 })}
+                 }):<>
+                 <NotFoundItems />
+                 </>}
+                </>} 
              </div>
+          
+             <div className='my-10'>
+                <PaginationProducts totalPage={totalPages} />
+             </div>
+
           </div>
        </div>
     </div>
@@ -49,3 +65,5 @@ const ProductComponent = () => {
 }
 
 export default ProductComponent
+
+
