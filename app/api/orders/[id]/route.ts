@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import {  NextResponse } from 'next/server';
 import {  Order } from '@/reactQuery/types';
 import { orders } from '../../data/orders';
 
-type tParams = Promise<{ id: string }>;
 export async function GET(
 
 ) {
