@@ -152,3 +152,17 @@ body{
     background-color: #555;
   }
 }
+
+
+.grid-container{
+display: grid;
+grid-template-columns: repeat(4,1fr);
+gap: 6px;
+grid-template-rows: 100px  100px;
+
+}
+.grid-container .box{
+background-color: red;
+grid-column: span 2;
+grid-row: span 2;
+}
