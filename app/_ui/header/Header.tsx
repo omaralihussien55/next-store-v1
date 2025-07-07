@@ -1,6 +1,9 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { ChangeValueCategory } from '@/redux/counterSlice'
+import { useAppDispatch } from '@/redux/hooks'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const data = [{img:"/pn.png",title:"Hyundai Tucson",info:"A stylish, compact SUV offering comfort and performance"},
@@ -8,8 +11,8 @@ const data = [{img:"/pn.png",title:"Hyundai Tucson",info:"A stylish, compact SUV
   ]
 
 const Header = () => {
-// const {data} = GetByIdQuery(6)
-// console.log(data?.images)
+const router = useRouter()
+const dispach = useAppDispatch()
   return (
        <div className=" border">
   <Carousel className="">
@@ -20,7 +23,7 @@ const Header = () => {
             className='w-full h-[300px] lg:h-[600px]   relative'
             >
              <div 
-              style={{ backgroundImage: `url(${item.img})` }}
+              style={{ backgroundImage: `url(${item.img}) ` }}
                 key={idx} className="flex items-center w-full h-full  justify-center  bg-no-repeat bg-cover ">
              
                      
@@ -38,7 +41,12 @@ const Header = () => {
                            </p>
 
                            <div className='flex items-center gap-3'>
-                            <Button className='bg-green-500/70 cursor-pointer hover:bg-green-500'>Shop Now</Button>
+                            <Button 
+                            onClick={()=> {
+                              dispach(ChangeValueCategory("Vehicle"))
+                              router.push("/products")
+                            }}
+                            className='bg-green-500/70 cursor-pointer hover:bg-green-500'>Shop Now</Button>
                            </div>
                       </div>
                 </div>

@@ -90,7 +90,7 @@ export async function PUT(req: NextRequest) {
 
     // ✅ تحديث status فقط
     orders[orderIndex].status = status;
-    orders[orderIndex].date = new Date().toISOString(); // لتحديث التاريخ إذا أردت
+    orders[orderIndex].date = new Date().toISOString(); 
 
     return NextResponse.json({
       message: "Order status updated successfully",

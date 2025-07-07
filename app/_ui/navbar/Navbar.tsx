@@ -20,8 +20,8 @@ const Navbar = () => {
     { id: 1, text: 'Home' ,link:"/"},
     { id: 2, text: 'products',link:"/products" },
     { id: 3, text: 'Orders',link:"/orders" },
-    { id: 4, text: 'About' ,link:"/"},
-    { id: 5, text: 'Contact',link:"/" },
+    // { id: 4, text: 'About' ,link:"/"},
+    // { id: 5, text: 'Contact',link:"/" },
   ];
 
   return (
@@ -35,9 +35,9 @@ const Navbar = () => {
         {navItems.map(item => (
           <li
             key={item.id}
-            className='p-2 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
+            className=''
           >
-            <Link href={`${item.link}`} className='block '>
+            <Link href={`${item.link}`} className='block  p-2 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'>
             {item.text}
             </Link>
           </li>
@@ -64,9 +64,9 @@ const Navbar = () => {
         {navItems.map(item => (
           <li
             key={item.id}
-            className='p-2 border-b rounded-xl hover:bg-[#00df9a] duration-300 text-white cursor-pointer border-gray-600'
+            className=''
           >
-            <Link href={`${item.link}`} className='block'>
+            <Link href={`${item.link}`} className='block p-2 border-b rounded-xl hover:bg-[#00df9a] duration-300 text-white cursor-pointer border-gray-600'>
                    {item.text}
             </Link>
             
