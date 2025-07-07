@@ -39,8 +39,8 @@ const ShopingCart: FC<{ carts: Cart }> = ({ carts }) => {
   if (currentStatus === 1) {
      updateOrder.mutate({ status: 2, id: currentOrder.id })
       patchorder.mutate()
-      if(patchorder.isSuccess ) return   router.push("/products")
-   
+      router.push("/products")
+    patchorder.mutate()
     dispatch(toggleCart(false))
     
     return
